@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from products.models import Product
 from .models import Cart, Item
@@ -35,7 +35,7 @@ def add_to_cart(request, product_id):
     # return HttpResponse(cart_item.product) check add
 
 
-def remove_from_cart(request, product_id):
+def remove_item_from_cart(request, product_id):
 
     cart = Cart.objects.get(cart_id=_cart_session_id(request))
     product = Product.objects.get(id=product_id)
@@ -45,6 +45,13 @@ def remove_from_cart(request, product_id):
         cart_item.save()
     else:
         cart_item.delete()
+    return redirect('cart')
+
+def delete_from_cart(request, product_id):
+    cart = Cart.objects.get(cart_id=_cart_session_id(request))
+    product = get_object_or_404(Product, id=product_id)
+    cart_item = Item.objects.get(product=product, cart=cart)
+    cart_item.delete()
     return redirect('cart')
 
 def cart(request, total=0, quantity=0, cart_items=None, tax=0):
