@@ -16,5 +16,8 @@ class Item(models.Model):
     quantity = models.IntegerField()
     is_available = models.BooleanField(default=True)
 
+    def product_total_price(self):
+        return self.quantity * self.product.price
+
     def __str__(self):
         return self.product
