@@ -7,6 +7,8 @@ from categories.models import Category
 class Product(models.Model):
 
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    color = models.CharField(max_length=50, blank=True)
+    size = models.CharField(max_length=50, blank=True)
     product_name = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(max_length=100, unique=True)
     product_description = models.TextField(max_length=600, blank=True)
