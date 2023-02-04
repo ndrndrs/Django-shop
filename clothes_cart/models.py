@@ -17,7 +17,8 @@ class Item(models.Model):
     is_available = models.BooleanField(default=True)
 
     def product_total_price(self):
-        return self.quantity * self.product.price
+        total = round(self.quantity * self.product.price, 2)
+        return total
 
     def __str__(self):
         return self.product
