@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
+from django.core.exceptions import ObjectDoesNotExist
+
+
 from products.models import Product
 from .models import Cart, Item
 
@@ -64,7 +66,7 @@ def cart(request, total=0, quantity=0, cart_items=None, tax=0):
             quantity += item.quantity
         tax = round((5 * total) / 100, 2)
         tax_total = round(total + tax, 2)
-    except Exception:
+    except ObjectDoesNotExist:
         ...
     total = round(total, 2)
     context = {
@@ -75,3 +77,4 @@ def cart(request, total=0, quantity=0, cart_items=None, tax=0):
         'cart_items': cart_items,
     }
     return render(request, 'store/cart.html', context)
+
