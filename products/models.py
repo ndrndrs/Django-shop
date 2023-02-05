@@ -1,5 +1,8 @@
 from django.db import models
 from django.shortcuts import reverse
+from django.utils.safestring import mark_safe
+
+
 from categories.models import Category
 
 # Create your models here.
@@ -22,7 +25,6 @@ class Product(models.Model):
 
     def image_img(self):
         if self.image:
-            from django.utils.safestring import mark_safe
             return mark_safe(u'<a href="{0}" target="_blank"><img src="{0}" width="100"/></a>'.format(self.image.url))
         else:
             return 'No image'
