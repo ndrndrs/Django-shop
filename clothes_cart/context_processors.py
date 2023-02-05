@@ -5,7 +5,7 @@ from .views import _cart_session_id
 def items_counter(request):
     count = 0
     if 'admin' in request.path:
-        return
+        return ()
     else:
         try:
             cart = Cart.objects.filter(cart_id=_cart_session_id(request))
@@ -16,7 +16,4 @@ def items_counter(request):
         except Cart.DoesNotExist:
             count = 0
 
-    counter = {
-        'count': count
-    }
-    return counter
+    return dict(count=count)
