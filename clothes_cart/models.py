@@ -1,5 +1,5 @@
 from django.db import models
-from products.models import Product
+from products.models import Product, Parameter
 # Create your models here.
 
 class Cart(models.Model):
@@ -12,6 +12,7 @@ class Cart(models.Model):
 
 class Item(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    parameters = models.ManyToManyField(Parameter, blank=True)
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     quantity = models.IntegerField()
     is_available = models.BooleanField(default=True)
@@ -20,5 +21,5 @@ class Item(models.Model):
         total = round(self.quantity * self.product.price, 2)
         return total
 
-    def __str__(self):
+    def __unicode__(self):
         return self.product
