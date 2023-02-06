@@ -10,8 +10,6 @@ from categories.models import Category
 class Product(models.Model):
 
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    color = models.CharField(max_length=50, blank=True)
-    size = models.CharField(max_length=50, blank=True)
     product_name = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(max_length=100, unique=True)
     product_description = models.TextField(max_length=600, blank=True)
@@ -37,3 +35,20 @@ class Product(models.Model):
 
     def __str__(self):
         return self.product_name
+
+
+parameters_variations = [
+    ['color', 'color'],
+    ['size', 'size']
+]
+
+
+class Parameter(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    category_param = models.CharField(max_length=30, choices=parameters_variations, blank=True)
+    value_param = models.CharField(max_length=80)
+    created_date = models.DateTimeField(auto_now_add=True)
+    is_available = models.BooleanField(default=True)
+
+    def __unicode__(self):
+        return self.product
