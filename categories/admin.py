@@ -5,11 +5,10 @@ from .models import Category
 
 
 class CategoryAdmin(admin.ModelAdmin):
-
-    prepopulated_fields = {'slug': ('cat_name', )}
+    prepopulated_fields = {'slug': ('cat_name',)}
     list_display = [
-        'cat_name', 'slug', 'cat_image', 'short_description'
+        'cat_name', 'slug', 'cat_image', 'short_description',
     ]
 
-admin.site.register(Category, CategoryAdmin)
 
+admin.site.register(Category, CategoryAdmin)
