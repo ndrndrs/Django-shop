@@ -34,7 +34,13 @@
 			<div class="aside"><img src="{{ item.product.image.url }}" class="img-sm"></div>
 			<figcaption class="info">
 				<a href="{{ item.product.get_url }}" class="title text-dark">{{ item.product.product_name }}</a>
-				<p class="text-muted small">Size: {{ item.product.size }} <br> Color: {{ item.product.color }}</p>
+				<p class="text-muted small">
+					{% if item.parameters.all %}
+					{% for val in item.parameters.all %}
+					{{ val.category_param }}: {{ val.value_param }}
+				{% endfor %}
+				{% endif %}
+				</p>
 			</figcaption>
 		</figure>
 	</td>
