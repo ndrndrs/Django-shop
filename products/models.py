@@ -2,13 +2,12 @@ from django.db import models
 from django.shortcuts import reverse
 from django.utils.safestring import mark_safe
 
-
 from categories.models import Category
+
 
 # Create your models here.
 
 class Product(models.Model):
-
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     product_name = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(max_length=100, unique=True)
@@ -43,12 +42,22 @@ parameters_variations = [
 ]
 
 
+class ParameterManager(models.Manager):
+
+    def color(self):
+        return super(ParameterManager, self).filter(category_param='color', is_available=True)
+
+    def size(self):
+        return super(ParameterManager, self).filter(category_param='size', is_available=True)
+
+
 class Parameter(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     category_param = models.CharField(max_length=30, choices=parameters_variations, blank=True)
     value_param = models.CharField(max_length=80)
     created_date = models.DateTimeField(auto_now_add=True)
     is_available = models.BooleanField(default=True)
+    manager_param = ParameterManager()
 
-    def __unicode__(self):
-        return self.product
+    def __str__(self):
+        return self.value_param
