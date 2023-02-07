@@ -5,13 +5,13 @@ from .models import Cart, Item
 
 class CartAdmin(admin.ModelAdmin):
     list_display = [
-        'cart_id', 'date_added'
+         'cart_id', 'date_added'
     ]
 
-class CartItem(admin.ModelAdmin):
+class CartItemAdmin(admin.ModelAdmin):
     list_display = [
-        'cart', 'product',  'quantity'
+        'product', 'cart', 'quantity'
     ]
 
 admin.site.register(Cart, CartAdmin)
-admin.site.register(Item, CartItem)
+admin.site.register(Item, CartItemAdmin)

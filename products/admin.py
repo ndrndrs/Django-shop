@@ -21,7 +21,7 @@ class ProductAdmin(admin.ModelAdmin):
 
 class ParameterAdmin(admin.ModelAdmin):
     list_display = (
-        'product', 'category_param', 'value_param', 'created_date','is_available'
+        'product', 'category_param', 'value_param', 'created_date', 'is_available'
     )
     list_editable = ('is_available', )
 
